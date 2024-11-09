@@ -1,7 +1,40 @@
-import { Module } from "@nestjs/common";
-import { EmailController } from "./email.controller";
+import { Global, Module } from "@nestjs/common";
+import { EmailService } from "./email.service";
+import { MailerModule } from "@nestjs-modules/mailer";
+import { ConfigModule, ConfigService } from "@nestjs/config";
+import { HandlebarsAdapter } from "@nestjs-modules/mailer/dist/adapters/handlebars.adapter";
+import { join } from "path";
 
+@Global()
 @Module({
-  controllers: [EmailController],
+  imports: [
+    MailerModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        transport: {
+          host: configService.get<string>("EMAIL_HOST"),
+          port: configService.get<number>("EMAIL_PORT"),
+          secure: false,
+          auth: {
+            user: configService.get<string>("EMAIL_USER"),
+            pass: configService.get<string>("EMAIL_PASS"),
+          },
+        },
+        defaults: {
+          from: '"Partnership - Rural Health Aid" <partnership@ruralhealthaid.com>',
+        },
+        template: {
+          dir: join(__dirname, "./templates"),
+          adapter: new HandlebarsAdapter(),
+          options: {
+            strict: true,
+          },
+        },
+      }),
+      inject: [ConfigService],
+    }),
+  ],
+  providers: [EmailService],
+  exports: [EmailService],
 })
-export class UserModule {}
+export class EmailModule {}

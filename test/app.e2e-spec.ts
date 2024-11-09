@@ -2,7 +2,7 @@ import { Test } from "@nestjs/testing";
 import * as pactum from "pactum";
 import { AppModule } from "../src/app.module";
 import { INestApplication, ValidationPipe } from "@nestjs/common";
-import { EmailDto } from "src/email/dto/email.dto";
+import { PartnershipRequestDto } from "../src/partnership/dto/request.dto";
 
 describe("app e2e", () => {
   let app: INestApplication;
@@ -25,35 +25,64 @@ describe("app e2e", () => {
   });
 
   describe("Email", () => {
-    const dto: EmailDto = {
-      email: "test@example.com",
-      name: "test subject",
+    const dto: PartnershipRequestDto = {
+      companyName: "test subject",
+      contactPerson: "Louis Marie",
+      contactEmail: "test@example.com",
       message: "test message",
     };
     describe("Correct email body", () => {
-      it("should throw error when email not in body", () => {
+      it("should throw error when contact email not in body", () => {
         const dtoBody = { ...dto };
-        delete dtoBody.email;
+        delete dtoBody.contactEmail;
 
-        return pactum.spec().post("/email").withBody(dtoBody).expectStatus(400);
+        return pactum
+          .spec()
+          .post("/partnership/request")
+          .withBody(dtoBody)
+          .expectStatus(400);
       });
-      it("should throw error when name not in body", () => {
+      it("should throw error when company name not in body", () => {
         const dtoBody = { ...dto };
-        delete dtoBody.name;
+        delete dtoBody.companyName;
 
-        return pactum.spec().post("/email").withBody(dtoBody).expectStatus(400);
+        return pactum
+          .spec()
+          .post("/partnership/request")
+          .withBody(dtoBody)
+          .expectStatus(400);
       });
+
+      it("should throw error when contact person name not in body", () => {
+        const dtoBody = { ...dto };
+        delete dtoBody.contactPerson;
+
+        return pactum
+          .spec()
+          .post("/partnership/request")
+          .withBody(dtoBody)
+          .expectStatus(400);
+      });
+
       it("should throw error when message not in body", () => {
         const dtoBody = { ...dto };
         delete dtoBody.message;
 
-        return pactum.spec().post("/email").withBody(dtoBody).expectStatus(400);
+        return pactum
+          .spec()
+          .post("/partnership/request")
+          .withBody(dtoBody)
+          .expectStatus(400);
       });
     });
 
     describe("Send email", () => {
       it("should send email", () => {
-        return pactum.spec().post("/email").withBody(dto).expectStatus(201);
+        return pactum
+          .spec()
+          .post("/partnership/request")
+          .withBody(dto)
+          .expectStatus(201);
       });
     });
   });
