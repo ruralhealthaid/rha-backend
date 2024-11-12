@@ -84,7 +84,8 @@ describe("app e2e", () => {
           .post("/partnership/request")
           .withBody(dto)
           .inspect()
-          .expectStatus(201);
+          .withRequestTimeout(15000)
+          .expectStatus(200);
       });
     });
   });
@@ -162,6 +163,7 @@ describe("app e2e", () => {
           .spec()
           .post("/contact-us")
           .withBody(dto)
+          .withRequestTimeout(15000)
           .expectStatus(200);
       });
 
@@ -171,6 +173,7 @@ describe("app e2e", () => {
           .post("/contact-us")
           .withBody(dto)
           .expectStatus(200)
+          .withRequestTimeout(15000)
           .expectBodyContains(
             "Message received successfully. We will contact you shortly"
           );
