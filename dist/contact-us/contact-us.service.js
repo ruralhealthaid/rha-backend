@@ -9,26 +9,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PartnershipService = void 0;
+exports.ContactUsService = void 0;
 const common_1 = require("@nestjs/common");
 const email_service_1 = require("../email/email.service");
-let PartnershipService = class PartnershipService {
+let ContactUsService = class ContactUsService {
     constructor(emailService) {
         this.emailService = emailService;
     }
-    async requestPartnership(dto) {
+    async sendContactEmail(dto) {
         const emailData = {
-            template: "./partnership-request.hbs",
             context: dto,
-            subject: `Partnership Request from ${dto.companyName}`,
+            subject: `Contact Message from ${dto.firstName} ${dto.lastName}`,
+            template: "./contact-us.hbs",
         };
         await this.emailService.sendMail(emailData);
-        return "Email send successfully";
+        return "Message received successfully. We will contact you shortly";
     }
 };
-exports.PartnershipService = PartnershipService;
-exports.PartnershipService = PartnershipService = __decorate([
+exports.ContactUsService = ContactUsService;
+exports.ContactUsService = ContactUsService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [email_service_1.EmailService])
-], PartnershipService);
-//# sourceMappingURL=partnership.service.js.map
+], ContactUsService);
+//# sourceMappingURL=contact-us.service.js.map

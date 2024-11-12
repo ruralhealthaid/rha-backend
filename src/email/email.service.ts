@@ -1,7 +1,7 @@
 import { MailerService } from "@nestjs-modules/mailer";
 import { Injectable, InternalServerErrorException } from "@nestjs/common";
-import { PartnershipRequestDto } from "../partnership/dto/request.dto";
 import { ConfigService } from "@nestjs/config";
+import { SendEmailType } from "./types/types";
 
 @Injectable()
 export class EmailService {
@@ -10,13 +10,13 @@ export class EmailService {
     private config: ConfigService
   ) {}
 
-  async sendMail(dto: PartnershipRequestDto) {
+  async sendMail(data: SendEmailType) {
     try {
       await this.mailerService.sendMail({
         to: this.config.get<string>("RHA_EMAIL_USER"),
-        subject: `Partnership Request from ${dto.companyName}`,
-        template: "./partnership-request.hbs",
-        context: dto,
+        subject: data.subject,
+        template: data.template,
+        context: data.context,
       });
       return {
         success: true,

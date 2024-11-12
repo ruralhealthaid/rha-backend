@@ -6,23 +6,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppModule = void 0;
+exports.ContactUsModule = void 0;
 const common_1 = require("@nestjs/common");
-const config_1 = require("@nestjs/config");
-const email_module_1 = require("./email/email.module");
-const partnership_module_1 = require("./partnership/partnership.module");
-const contact_us_module_1 = require("./contact-us/contact-us.module");
-let AppModule = class AppModule {
+const contact_us_controller_1 = require("./contact-us.controller");
+const contact_us_service_1 = require("./contact-us.service");
+let ContactUsModule = class ContactUsModule {
 };
-exports.AppModule = AppModule;
-exports.AppModule = AppModule = __decorate([
+exports.ContactUsModule = ContactUsModule;
+exports.ContactUsModule = ContactUsModule = __decorate([
     (0, common_1.Module)({
-        imports: [
-            config_1.ConfigModule.forRoot({ isGlobal: true }),
-            email_module_1.EmailModule,
-            partnership_module_1.PartnershipModule,
-            contact_us_module_1.ContactUsModule,
-        ],
+        controllers: [contact_us_controller_1.ContactUsController],
+        providers: [contact_us_service_1.ContactUsService],
     })
-], AppModule);
-//# sourceMappingURL=app.module.js.map
+], ContactUsModule);
+//# sourceMappingURL=contact-us.module.js.map

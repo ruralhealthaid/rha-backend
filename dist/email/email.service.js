@@ -18,13 +18,13 @@ let EmailService = class EmailService {
         this.mailerService = mailerService;
         this.config = config;
     }
-    async sendMail(dto) {
+    async sendMail(data) {
         try {
             await this.mailerService.sendMail({
                 to: this.config.get("RHA_EMAIL_USER"),
-                subject: `Partnership Request from ${dto.companyName}`,
-                template: "./partnership-request.hbs",
-                context: dto,
+                subject: data.subject,
+                template: data.template,
+                context: data.context,
             });
             return {
                 success: true,
