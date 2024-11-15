@@ -14,6 +14,9 @@ export class ContactUsService {
       template: "./contact-us.hbs",
     };
     await this.emailService.sendMail(emailData);
-    return "Message received successfully. We will contact you shortly";
+    return {
+      success: true,
+      message: "Message received successfully. We will contact you shortly",
+    };
   }
 }

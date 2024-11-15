@@ -3,5 +3,8 @@ import { PartnershipService } from "./partnership.service";
 export declare class PartnershipController {
     private partnershipService;
     constructor(partnershipService: PartnershipService);
-    partnershipRequest(dto: PartnershipRequestDto): Promise<string>;
+    partnershipRequest(dto: PartnershipRequestDto): Promise<{
+        success: boolean;
+        message: string;
+    }>;
 }

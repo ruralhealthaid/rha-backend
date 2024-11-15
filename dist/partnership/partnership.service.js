@@ -23,7 +23,7 @@ let PartnershipService = class PartnershipService {
             subject: `Partnership Request from ${dto.companyName}`,
         };
         await this.emailService.sendMail(emailData);
-        return "Email send successfully";
+        return { success: true, message: "Email send successfully" };
     }
 };
 exports.PartnershipService = PartnershipService;

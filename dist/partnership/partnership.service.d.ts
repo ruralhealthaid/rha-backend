@@ -3,5 +3,8 @@ import { EmailService } from "../email/email.service";
 export declare class PartnershipService {
     private readonly emailService;
     constructor(emailService: EmailService);
-    requestPartnership(dto: PartnershipRequestDto): Promise<string>;
+    requestPartnership(dto: PartnershipRequestDto): Promise<{
+        success: boolean;
+        message: string;
+    }>;
 }

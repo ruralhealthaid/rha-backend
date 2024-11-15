@@ -3,5 +3,8 @@ import { ContactUsDto } from "./dto/contact-us.dto";
 export declare class ContactUsService {
     private emailService;
     constructor(emailService: EmailService);
-    sendContactEmail(dto: ContactUsDto): Promise<string>;
+    sendContactEmail(dto: ContactUsDto): Promise<{
+        success: boolean;
+        message: string;
+    }>;
 }
