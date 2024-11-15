@@ -7,8 +7,10 @@ export class ContactUsController {
   constructor(private contactService: ContactUsService) {}
 
   @HttpCode(HttpStatus.OK)
-  @Post("")
+  @Post("/")
   async sendContactEmail(@Body() dto: ContactUsDto) {
     return await this.contactService.sendContactEmail(dto);
   }
 }
+
+("http://localhost:3333/contact-us/");

@@ -26,7 +26,8 @@ let ContactUsController = class ContactUsController {
 };
 exports.ContactUsController = ContactUsController;
 __decorate([
-    (0, common_1.Post)(""),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    (0, common_1.Post)("/"),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [contact_us_dto_1.ContactUsDto]),
@@ -36,4 +37,5 @@ exports.ContactUsController = ContactUsController = __decorate([
     (0, common_1.Controller)("contact-us"),
     __metadata("design:paramtypes", [contact_us_service_1.ContactUsService])
 ], ContactUsController);
+("http://localhost:3333/contact-us/");
 //# sourceMappingURL=contact-us.controller.js.map
